@@ -24,23 +24,35 @@ import backtype.storm.tuple.Values;
  *  	4. 필드값은 declareOutputFields라는 함수에 정의하는데, 데이터의 필드는 "say"로 정의하였다.
  */
 public class HelloSpout extends BaseRichSpout {
-	private static final long seriaVersionUID = 1L;
-	private static int count=0;
-	private SpoutOutputCollector collector;
 
-	public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {
-		this.collector = collector;
-	}	
+    private static final long serialVersionUID = 1L;
 
-	public void nextTuple() {
-		// emit : 데이터를 워크플로우에 보내는 함수 
-		this.collector.emit(new Values("hello world"));	
-	}
+    private SpoutOutputCollector collector;
 
+   
 
-	public void declareOutputFields(OutputFieldsDeclarer declarer) {
-		declarer.declare(new Fields("say"));	
-		
-	}
+    public void open(Map conf,TopologyContext context,SpoutOutputCollector collector){
+
+         this.collector = collector; 
+
+    }
+
+   
+
+    public void nextTuple(){
+
+           this.collector.emit(new Values("hello world"));
+
+    }
+
+   
+
+    public void declareOutputFields(OutputFieldsDeclarer declarer){
+
+           declarer.declare(new Fields("say"));
+
+    }
+
+   
 
 }

@@ -25,18 +25,32 @@ import backtype.storm.tuple.Values;
  * 
  * 		4. 데이터를 생성하는 Spout와 데이터를 처리하는 Bolt를 구현했으면 이둘을 연결시켜주는 Topology 필요
  */
-public class HelloBolt extends BaseBasicBolt {
+public class HelloBolt extends BaseBasicBolt{
 
-	public void execute(Tuple tuple, BasicOutputCollector collector) {
-		String value = tuple.getStringByField("say");
-		System.out.println("Tuple value is" + value);
-		
-		// collector.emit(new Values("test")); 다음 플로우로 보내고자 할때 
-	}
+	 
 
-	public void declareOutputFields(OutputFieldsDeclarer declarer) {
-		// declarer.declare(new Fields("testFiles")); //다음 플로우에서 필드 정의
-		
-	}
+    public void execute(Tuple tuple, BasicOutputCollector collector) {
+
+           // TODO Auto-generated method stub
+
+           String value = tuple.getStringByField("say");
+
+           System.out.println("Tuple value is"+value);
+
+    }
+
+
+
+    public void declareOutputFields(OutputFieldsDeclarer declarer) {
+
+           // TODO Auto-generated method stub
+
+          
+
+    }
+
+
 
 }
+
+

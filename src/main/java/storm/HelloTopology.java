@@ -33,28 +33,38 @@ import storm.spout.HelloSpout;
 
 // 운영용 클러스터
 public class HelloTopology {
-	public static void main(String args[]) {
-		TopologyBuilder builder = new TopologyBuilder();
-		builder.setSpout("HelloSpout", new HelloSpout(),2); // 2 = Executor 수
-															// = Parallelism 힌트 = 이 Spout 컴포넌트가 수행될 쓰레드의 수
-															// 여기선 Spout의 Task 수를 지정하지 않았고, 정의하지 않은경우 Executor수와 같이 설정
-		
-		builder.setBolt("HelloBolt", new HelloBolt(),2)		// Bolt의 Executor(쓰레드 수)와 Task(객체)수 설
-															// = Parallelism 힌트 = 이 Bolt 컴포넌트가 수행될 쓰레드의 수
-						.setNumTasks(4)// 여기선 Task수를 별도로 지정했고, 4개를 지정했다
-										// HelloBolt 객체는 총 4개가 생기고, 2개의  Thread에서 번갈아 가면서 실행한다.
-						.shuffleGrouping("HelloSpout");
-		
-		Config conf = new Config();
-		conf.setNumWorkers(5); //이 토폴로지에서 사용한 Worker 프로세스수 5개 지정
-		
-		try {
-			StormSubmitter.submitTopology(args[0], conf, 
-					builder.createTopology());
-		} catch (AlreadyAliveException e) {
-			e.printStackTrace();
-		} catch (InvalidTopologyException e) {
-			e.printStackTrace();
-		}
-	}
+    public static void main(String args[]){
+
+        TopologyBuilder builder = new TopologyBuilder();
+
+        builder.setSpout("HelloSpout", new HelloSpout(),2);
+
+        builder.setBolt("HelloBolt", new HelloBolt(),4).shuffleGrouping("HelloSpout");
+
+       
+
+        Config conf = new Config();
+
+        // Submit topology to cluster
+
+        try{
+
+                StormSubmitter.submitTopology(args[0], conf, builder.createTopology());
+
+        }catch(AlreadyAliveException ae){
+
+                System.out.println(ae);
+
+        }catch(InvalidTopologyException ie){
+
+                System.out.println(ie);
+
+        }
+
+       
+
+ }
+
+
+
 }
