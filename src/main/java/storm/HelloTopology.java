@@ -44,6 +44,7 @@ public class HelloTopology {
        
 
         Config conf = new Config();
+        conf.setNumWorkers(2); // Supervisor 물리서버 할당 수
 
         // Submit topology to cluster
 

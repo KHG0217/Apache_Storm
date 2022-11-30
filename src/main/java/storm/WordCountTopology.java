@@ -47,7 +47,7 @@ public class WordCountTopology {
 		
 		Config conf = new Config();
 		conf.setDebug(true);
-		conf.setNumWorkers(1); // 이 토폴로지에서 사용한 Worker 프로세스 수 2개
+		conf.setNumWorkers(2); // 이 토폴로지에서 사용한 Worker 프로세스 수 2개
 		
 		// 스파우트와 볼트 사이의 처리속도를 맞추기 위해 송수신 큐 사이즈를 최소화
 //		conf.put(Config.TOPOLOGY_EXECUTOR_RECEIVE_BUFFER_SIZE, new Integer(1));
